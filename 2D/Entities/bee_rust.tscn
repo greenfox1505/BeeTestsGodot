@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw5sfnr8ptdtv"]
+
+[ext_resource type="Texture2D" uid="uid://bh3qqs3xcsne" path="res://Art/bee.png" id="1_0k8r2"]
+
+[node name="Bee" type="BeeRust"]
+position = Vector2(-4, 56)
+scale = Vector2(0.248512, 0.248513)
+texture = ExtResource("1_0k8r2")

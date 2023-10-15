@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6nut82rlp7c"]
+[gd_scene load_steps=19 format=3 uid="uid://b6nut82rlp7c"]
 
 [ext_resource type="Texture2D" uid="uid://bk1vugbyhh6j4" path="res://Art/bg.png" id="1_cannb"]
 [ext_resource type="Texture2D" uid="uid://p8ps7xsucaso" path="res://Art/beehive.png" id="2_071m1"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://2D/Code/EnableNode.gd" id="10_0k225"]
 [ext_resource type="Script" path="res://2D/Code/FPS.gd" id="11_uxiqh"]
 [ext_resource type="Texture2D" uid="uid://bh3qqs3xcsne" path="res://Art/bee.png" id="12_7dxwu"]
+[ext_resource type="PackedScene" uid="uid://cw5sfnr8ptdtv" path="res://2D/Entities/bee_rust.tscn" id="12_8lume"]
 [ext_resource type="Script" path="res://2D/Code/MultiMeshMove2D.cs" id="13_dc7w4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_k8wq0"]
@@ -55,87 +56,72 @@ scale = Vector2(0.589, 0.589)
 texture = ExtResource("3_p0rbf")
 script = ExtResource("4_q5te6")
 bee_scene = ExtResource("5_ueamx")
-lable = NodePath("../HUD/Label Count")
+lable = NodePath("../HUD/Info/VBoxContainer/Label Count")
 
 [node name="Bee" parent="BeehiveL" instance=ExtResource("5_ueamx")]
 
 [node name="EmptyBeehive" type="Node2D" parent="BeehiveL" node_paths=PackedStringArray("lable")]
 script = ExtResource("4_q5te6")
 bee_scene = ExtResource("6_fjltt")
-lable = NodePath("../../HUD/Label Count")
+lable = NodePath("../../HUD/Info/VBoxContainer/Label Count")
 key = "empty"
 
 [node name="JustCodeBeehive" type="Node2D" parent="BeehiveL" node_paths=PackedStringArray("lable")]
 script = ExtResource("4_q5te6")
 bee_scene = ExtResource("7_ysqsw")
-lable = NodePath("../../HUD/Label Count")
+lable = NodePath("../../HUD/Info/VBoxContainer/Label Count")
 key = "justCode"
 
 [node name="JustCodeGDBeehive" type="Node2D" parent="BeehiveL" node_paths=PackedStringArray("lable")]
 script = ExtResource("4_q5te6")
 bee_scene = ExtResource("8_ehhd5")
-lable = NodePath("../../HUD/Label Count")
+lable = NodePath("../../HUD/Info/VBoxContainer/Label Count")
 key = "justCodeGD"
 
 [node name="GDBeehive" type="Node2D" parent="BeehiveL" node_paths=PackedStringArray("lable")]
 script = ExtResource("4_q5te6")
 bee_scene = ExtResource("9_hball")
-lable = NodePath("../../HUD/Label Count")
+lable = NodePath("../../HUD/Info/VBoxContainer/Label Count")
 key = "gd"
 
-[node name="HUD" type="Node" parent="." node_paths=PackedStringArray("canvasItem")]
+[node name="RustBeehive" type="Node2D" parent="BeehiveL" node_paths=PackedStringArray("lable")]
+script = ExtResource("4_q5te6")
+bee_scene = ExtResource("12_8lume")
+lable = NodePath("../../HUD/Info/VBoxContainer/Label Count")
+key = "rust"
+
+[node name="HUD" type="Node" parent="."]
 script = ExtResource("10_0k225")
-canvasItem = NodePath("Info")
 toggle = true
 
-[node name="Label Count" type="Label" parent="HUD"]
-offset_left = 95.0121
-offset_top = 6.98236
-offset_right = 457.012
-offset_bottom = 102.982
-text = "Count: 1"
-label_settings = SubResource("LabelSettings_j1w1u")
-
-[node name="Label Title" type="Label" parent="HUD"]
-anchors_preset = 10
+[node name="Info" type="MarginContainer" parent="HUD"]
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -13.0072
-offset_top = 15.1348
-offset_right = -13.0072
-offset_bottom = 335.135
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Label Title" type="Label" parent="HUD/Info"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 text = "Godot 2D"
 label_settings = SubResource("LabelSettings_j1w1u")
 horizontal_alignment = 1
 
-[node name="Label FPS" type="Label" parent="HUD"]
-offset_left = 92.974
-offset_top = 78.3159
-offset_right = 454.974
-offset_bottom = 174.316
-text = "100"
-label_settings = SubResource("LabelSettings_j1w1u")
-script = ExtResource("11_uxiqh")
-
-[node name="Info" type="Control" parent="HUD"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="Label Tests" type="Label" parent="HUD/Info"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 31.0
-offset_top = 731.0
-offset_right = 286.0
-offset_bottom = 1064.0
-grow_horizontal = 2
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 text = "Tests (Add 1,000):
   B - No logic
   G - GDScript
   C - Srpite2D C#
+  E - Rust!
  M - MultiMesh Quad
    J - Just Code C#
  H - Just Code GD
@@ -144,19 +130,30 @@ text = "Tests (Add 1,000):
 label_settings = SubResource("LabelSettings_ni4aq")
 
 [node name="Label Scenes" type="Label" parent="HUD/Info"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 1664.0
-offset_top = 830.0
-offset_right = 1754.0
-offset_bottom = 1025.0
-grow_horizontal = 2
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 text = "Scenes:
   1 - 2D
   2 - 3D
   R - Restart"
 label_settings = SubResource("LabelSettings_ni4aq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Info"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label Count" type="Label" parent="HUD/Info/VBoxContainer"]
+layout_mode = 2
+text = "Count: 1"
+label_settings = SubResource("LabelSettings_j1w1u")
+
+[node name="Label FPS" type="Label" parent="HUD/Info/VBoxContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_j1w1u")
+script = ExtResource("11_uxiqh")
 
 [node name="HiveLabels" type="Node" parent="."]
 

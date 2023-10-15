@@ -41,8 +41,8 @@ public partial class MultiMeshMove2D : MultiMeshInstance2D
 	}
 
 
-    public override void _Input(InputEvent @event)
-    {
+	public override void _Input(InputEvent @event)
+	{
 		if(@event.IsActionPressed(action)){
 			Multimesh.InstanceCount+=1000;
 			_Ready();
@@ -50,6 +50,6 @@ public partial class MultiMeshMove2D : MultiMeshInstance2D
 		if(@event.IsActionPressed("restart")){
 			Multimesh.InstanceCount=0;
 		}
-        base._Input(@event);
-    }
+		base._Input(@event);
+	}
 }
